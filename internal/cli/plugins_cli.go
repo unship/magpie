@@ -534,6 +534,13 @@ func askPrompt(q *plugin.Prompt) (string, error) {
 		}
 		return q.Options[i].Value, nil
 	}
+	if q.Type == "password" {
+		p := q.Message
+		if q.Placeholder != "" {
+			p += " " + muted.Render("("+q.Placeholder+")")
+		}
+		return secret("input", p, false)
+	}
 	p := q.Message
 	if q.Placeholder != "" {
 		p += " " + muted.Render("("+q.Placeholder+")")
